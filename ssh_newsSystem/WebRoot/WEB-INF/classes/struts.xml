@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<constant name="struts.i18n.encoding" value="UTF-8"></constant> 
+	<constant name="struts.objectFactory.spring.autoWire" value="name"></constant> 
+	<constant name="struts.objectFactory.spring.useClassCache" value="true"></constant> 
+	<constant name="struts.devMode" value="true"></constant> 
+	<constant name="struts.objectFactory" value="spring"></constant> 
+	<constant name="struts.i18n.reload" value="true"></constant> 
+	
+	<!-- 登录 -->
+	<package name="/" extends="struts-default">
+     <action name="login" class="com.sise.yxc.action.loginAction">
+          <result name="success">/success.jsp</result>
+         
+          <result name="failure">/failure.jsp</result>
+     </action>
+	</package>
+	<!-- 注册 -->
+	<package name="register" extends="struts-default">
+     <action name="register" class="com.sise.yxc.action.RegisterAction">
+          <result name="registersuccess">/registersuccess.jsp</result>
+           <result name="input">/register.jsp</result>
+          <result name="registerfailure">/registerfailure.jsp</result>
+     </action>
+	</package>
+	<!-- 获取新闻列表 -->
+	<package name="getnewslist" extends="struts-default">
+     <action name="getnewslist" class="com.sise.yxc.action.GetnewslistAction">
+          <result name="newslist">/newslist.jsp</result>
+          <result name="newslist-manage">/newsmanage.jsp</result>
+     </action>
+	</package>
+	<!-- 添加新闻 -->
+	<package name="addnews" extends="struts-default">
+     <action name="addnews" class="com.sise.yxc.action.addnewsAction">
+          <result name="newsmanage">/newsmanage.jsp</result>
+          <result name="input">/addnews.jsp</result>
+     </action>
+	</package>
+	<!-- 管理新闻 -->
+	<package name="newsmanage" extends="struts-default">
+     <action name="newsmanage" class="com.sise.yxc.action.NewsManageAction">
+          <result name="allnewslist">/newsmanage.jsp</result>
+          <result name="editnews">/editnews.jsp</result>
+          <result name="newscontent">/newscontent.jsp</result>
+     </action>
+	</package>
+	<!-- 管理个人信息 -->
+	<package name="personmanage" extends="struts-default">
+     <action name="personmanage" class="com.sise.yxc.action.PersonmanageAction">
+          <result name="personmanage">/personmanage.jsp</result>
+     </action>
+	</package>
+</struts>    

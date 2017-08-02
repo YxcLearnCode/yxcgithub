@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <!-- 导入资源文件 -->
+    <context:property-placeholder location="classpath:db.properties" />
+     <!-- 数据库连接配置 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="driverClass" value="${jdbc.driverClass}"></property>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+        <property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+    </bean>
+   
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.autoReconnect">true</prop> 
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				  
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>com/sise/yxc/model/News.hbm.xml</value>
+				<value>com/sise/yxc/model/Userinfo.hbm.xml</value>
+				<value>com/sise/yxc/model/Category.hbm.xml</value>
+				<value>com/sise/yxc/model/UserCollect.hbm.xml</value></list>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 让所有的方法都加入事务管理，为了提高效率，可以把一些查询之类的方法设置为只读的事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+		<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+       <tx:method name="save*" propagation="REQUIRED" />
+       <tx:method name="update*" propagation="REQUIRED" />
+       <tx:method name="delete*" propagation="REQUIRED" />
+       <tx:method name="add*" propagation="REQUIRED" />
+       <tx:method name="del*" propagation="REQUIRED" />
+     
+    </tx:attributes>
+   </tx:advice> 
+	
+	<!-- 哪些类的哪些方法参与事务 -->
+   <aop:config>
+       <aop:pointcut id="allServiceMethod" expression="execution(* com.sise.yxc.service.*.*(..))" />
+       <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice" />
+   </aop:config>
+   
+   <bean
+		id="NewsDAO" class="com.sise.yxc.dao.NewsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+</bean>
+	<bean id="UserinfoDAO" class="com.sise.yxc.dao.UserinfoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CategoryDAO" class="com.sise.yxc.dao.CategoryDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UserCollectDAO"
+		class="com.sise.yxc.dao.UserCollectDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- 用户服务类 -->
+	<bean id="UserService" class="com.sise.yxc.service.UserService">
+		<property name="userinfodao">
+			<ref bean="UserinfoDAO"/>
+		</property>
+	</bean>
+	<bean id="loginAction" class="com.sise.yxc.action.loginAction">
+		<property name="userservice">
+			<ref bean="UserService"/>
+		</property>
+	</bean>
+	<bean id="RegisterAction" class="com.sise.yxc.action.RegisterAction">
+		<property name="userservice">
+			<ref bean="UserService"/>
+		</property>
+	</bean>
+	<!-- 新闻服务类 -->
+	<bean id="NewsService" class="com.sise.yxc.service.NewsService">
+		<property name="newsdao">
+			<ref bean="NewsDAO"/>
+		</property>
+		<property name="categorydao">
+			<ref bean="CategoryDAO"/>
+		</property>
+	</bean>
+	<!-- action -->
+	<bean id="GetnewslistAction" class="com.sise.yxc.action.GetnewslistAction">
+		<property name="newsservice">
+			<ref bean="NewsService"/>
+		</property>
+	</bean>
+	<bean id="addnewsAction" class="com.sise.yxc.action.addnewsAction">
+		<property name="newsservice">
+			<ref bean="NewsService"/>
+		</property>
+	</bean>
+	<bean id="NewsManageAction" class="com.sise.yxc.action.NewsManageAction">
+		<property name="newsservice">
+			<ref bean="NewsService"/>
+		</property>
+	</bean>
+	<bean id="PersonmanageAction" class="com.sise.yxc.action.PersonmanageAction">
+		<property name="userservice">
+			<ref bean="UserService"/>
+		</property>
+	</bean>
+	</beans>

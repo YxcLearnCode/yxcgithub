@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    tools:context="work.try_01.MainActivity"
+    android:background="@drawable/login4"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/boder"
+    android:layout_marginBottom="16dp"
+    >
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="#FCFCFC"
+        android:textSize="18dp"
+        android:text="用户名:"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:textColor="#FCFCFC"
+        android:id="@+id/userID"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="16"
+        android:background="@null"
+        android:hint="请输入学号                      "
+
+        />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/boder"
+
+        >
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="18dp"
+        android:text="密   码:"
+        android:textColor="#FCFCFC"
+        android:textStyle="bold"
+        android:id="@+id/textView2"
+
+        />
+    <EditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:password="true"
+            android:textColor="#FCFCFC"
+            android:hint="请输入密码  "
+            android:background="@null"
+
+
+         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+     <Button
+        android:id="@+id/btn1"
+        android:layout_height="wrap_content"
+         android:layout_width="fill_parent"
+         android:text="登录"
+         android:textColor="#40E0D0"
+
+        />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="1dip"
+    android:paddingLeft="10dip"
+    android:orientation="horizontal"
+    android:paddingBottom="3dip">
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/sushe"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/days"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/why"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/whos"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:singleLine="true"/>
+
+
+</LinearLayout>
